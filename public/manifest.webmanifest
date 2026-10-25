@@ -1,0 +1,15 @@
+{
+  "name": "Yomakr",
+  "short_name": "Yomakr",
+  "description": "Lernen, fragen, bauen – mit YoMa.",
+  "start_url": "/lab",
+  "display": "standalone",
+  "background_color": "#efefe6",
+  "theme_color": "#efefe6",
+  "lang": "de",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
