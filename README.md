@@ -35,10 +35,10 @@ Fällt der Prüfschritt aus (z. B. API nicht erreichbar), wird keine ungeprüfte
 
 ## Modelle und Kosten
 
-- Chat und Wochenbericht: **Claude Opus 5.5** (`CHAT_MODEL`)
+- Chat und Wochenbericht: **Claude Sonnet 5.5** (`CHAT_MODEL`)
 - Prüfschritt: **Claude Haiku 5.5** (`CHECK_MODEL`)
 
-Die App zählt die Kosten pro Tag mit und sperrt, wenn das Monatsbudget erreicht ist. Zusätzlich solltest du in der [Anthropic Console](https://console.anthropic.com) für den API-Key ein festes Monatslimit setzen. Wer Kosten sparen will, kann `CHAT_MODEL=claude-sonnet-5-5` setzen.
+Die App zählt die Kosten pro Tag mit und sperrt, wenn das Monatsbudget erreicht ist. Zusätzlich solltest du in der [Claude Console](https://platform.claude.com) für den API-Key ein festes Monatslimit setzen. Bei normaler Nutzung kostet das etwa 4 bis 9 $ im Monat. Wer mehr Tiefe möchte, kann `CHAT_MODEL=claude-opus-5-5` setzen (etwa doppelt so teuer).
 
 ## Lokal starten
 

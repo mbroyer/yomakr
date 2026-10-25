@@ -10,7 +10,7 @@ export function getClient(): Anthropic {
   return client;
 }
 
-export const CHAT_MODEL = process.env.CHAT_MODEL || "claude-opus-5-5";
+export const CHAT_MODEL = process.env.CHAT_MODEL || "claude-sonnet-5-5";
 export const CHECK_MODEL = process.env.CHECK_MODEL || "claude-haiku-5-5";
 
 /** Modelle, die die serverseitige Ausweich-Logik bei Ablehnungen unterstützen. */
