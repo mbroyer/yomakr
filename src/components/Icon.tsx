@@ -31,6 +31,11 @@ const PATHS = {
   back: <path d="M19 12H5M12 19l-7-7 7-7" />,
   backspace: <path d="M21 5H9l-6 7 6 7h12zM12 9l6 6M18 9l-6 6" />,
   logout: <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />,
+  arrow: <path d="M7 17 17 7M8 7h9v9" />,
+  tip: <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z" />,
+  simpler: <path d="M4 7h16M4 12h10M4 17h6" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  quiz: <path d="M9 11l3 3 8-8M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9" />,
   pause: <path d="M8 5v14M16 5v14" />,
   play: <path d="M7 4.5v15L19 12z" />,
 } as const;

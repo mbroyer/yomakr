@@ -24,7 +24,12 @@ interface ConversationSummary {
   title: string;
 }
 
-const HELPERS = ["Erklär's mir einfacher", "Gib mir einen Tipp", "Noch ein Beispiel, bitte", "Stell mir eine Quizfrage"];
+const HELPERS: { label: string; icon: IconName; prompt: string }[] = [
+  { label: "Tipp", icon: "tip", prompt: "Gib mir einen Tipp" },
+  { label: "Einfacher", icon: "simpler", prompt: "Erklär's mir einfacher" },
+  { label: "Beispiel", icon: "plus", prompt: "Noch ein Beispiel, bitte" },
+  { label: "Quiz", icon: "quiz", prompt: "Stell mir eine Quizfrage" },
+];
 
 export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string }) {
   const router = useRouter();
@@ -110,37 +115,45 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
       <main className="page">
         <header className="topbar">
           <div className="brand">
-            <span className="accent">
-              <Logo size={36} />
+            <span className="dot">
+              <Logo size={26} />
             </span>
-            Yomakr
+            yomakr
           </div>
           <button className="secondary" onClick={logout}>
             <Icon name="logout" size={20} /> Tschüss
           </button>
         </header>
-        <h1>{kidName ? `Hi ${kidName}!` : "Hi!"} Was machen wir heute?</h1>
-        <p className="muted">Such dir aus, wie ich dir helfen soll.</p>
+        <div className="greeting">
+          <span className="hello">{kidName ? `Hi ${kidName}!` : "Hi!"}</span>
+          <h1>Was machen wir heute?</h1>
+        </div>
         <section className="modes">
-          {modes.map((m) => (
-            <button key={m.id} className="mode" onClick={() => start(m)}>
-              <span className="mode-icon">
-                <Icon name={m.icon} size={30} />
+          {modes.map((m, i) => (
+            <button key={m.id} className={`mode c${i % 4}`} onClick={() => start(m)}>
+              <span className="top">
+                <span className="dot">
+                  <Icon name={m.icon} size={28} />
+                </span>
+                <Icon name="arrow" size={26} />
               </span>
-              <span className="title">{m.title}</span>
-              <span className="tagline">{m.tagline}</span>
+              <span>
+                <span className="title">{m.title}</span>
+                <span className="tagline">{m.tagline}</span>
+              </span>
             </button>
           ))}
-          <div className="mode soon" aria-disabled>
-            <span className="mode-icon">
-              <Icon name="blocks" size={30} />
-            </span>
-            <span className="title">Werkstatt</span>
-            <span className="tagline">Eigene Spiele und Apps bauen. Kommt bald!</span>
-          </div>
         </section>
+        <div className="soon" aria-disabled>
+          <span className="dot">
+            <Icon name="blocks" size={24} />
+          </span>
+          <span>
+            <strong>Werkstatt</strong> · Eigene Spiele und Apps bauen. Kommt bald!
+          </span>
+        </div>
         {history.length > 0 && (
-          <section style={{ marginTop: 28 }}>
+          <section style={{ marginTop: 32 }}>
             <h2>Weitermachen</h2>
             <div className="history">
               {history.slice(0, 8).map((c) => {
@@ -162,34 +175,43 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
   return (
     <main className="page">
       <header className="topbar">
-        <button className="secondary" onClick={() => setMode(null)}>
-          <Icon name="back" size={20} /> Zurück
-        </button>
-        <div className="brand" style={{ fontSize: 19 }}>
-          <Icon name={mode.icon} size={24} /> {mode.title}
+        <div className="row">
+          <button className="secondary round" onClick={() => setMode(null)} aria-label="Zurück">
+            <Icon name="back" size={22} />
+          </button>
+          <div className="chat-title">
+            <span className="dot">
+              <Icon name={mode.icon} size={22} />
+            </span>
+            {mode.title}
+          </div>
         </div>
-        <span style={{ width: 90 }} />
       </header>
       <section className="chat">
         <div className="messages">
           {messages.length === 0 && (
-            <div className="row" style={{ alignItems: "flex-start" }}>
-              <span className="accent">
-                <Logo size={44} />
-              </span>
-              <div className="bubble assistant">{mode.tagline} Schreib mir oder tippe aufs Mikrofon der Tastatur und sprich einfach.</div>
+            <div className="bubble assistant">
+              <YoMaLabel />
+              {mode.tagline} Schreib mir oder tippe aufs Mikrofon der Tastatur und sprich einfach.
             </div>
           )}
           {messages.map((m, i) => (
             <div key={i} className={`bubble ${m.role}`}>
-              {m.role === "assistant" ? <RichText text={m.content} /> : m.content}
+              {m.role === "assistant" ? (
+                <>
+                  <YoMaLabel />
+                  <RichText text={m.content} />
+                </>
+              ) : (
+                m.content
+              )}
             </div>
           ))}
           {busy && (
             <div className="thinking">
-              <span className="accent">
-                <Logo size={28} thinking />
-              </span>{" "}
+              <span className="dot">
+                <Logo size={20} thinking />
+              </span>
               YoMa denkt nach …
             </div>
           )}
@@ -199,8 +221,9 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
         {messages.length > 0 && (
           <div className="helpers">
             {HELPERS.map((h) => (
-              <button key={h} onClick={() => send(h)} disabled={busy}>
-                {h}
+              <button key={h.label} onClick={() => send(h.prompt)} disabled={busy}>
+                <Icon name={h.icon} size={24} />
+                {h.label}
               </button>
             ))}
           </div>
@@ -213,9 +236,9 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
           }}
         >
           <textarea
-            rows={2}
+            rows={1}
             value={text}
-            placeholder="Deine Nachricht …"
+            placeholder="Frag YoMa irgendwas …"
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -225,10 +248,21 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
             }}
           />
           <button type="submit" disabled={busy || !text.trim()} aria-label="Senden">
-            <Icon name="send" size={26} />
+            <Icon name="send" size={24} />
           </button>
         </form>
       </section>
     </main>
+  );
+}
+
+function YoMaLabel() {
+  return (
+    <span className="who">
+      <span className="dot">
+        <Logo size={18} />
+      </span>
+      YoMa
+    </span>
   );
 }

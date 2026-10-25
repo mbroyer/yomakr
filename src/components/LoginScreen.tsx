@@ -45,8 +45,8 @@ export function LoginScreen() {
     <main className="login page">
       {view === "kid" ? (
         <div className="card">
-          <span className="accent">
-            <Logo size={72} />
+          <span className="dot">
+            <Logo size={48} />
           </span>
           <h1>Hi! Ich bin YoMa.</h1>
           <p className="muted">Gib deine PIN ein, dann legen wir los.</p>
@@ -66,7 +66,7 @@ export function LoginScreen() {
             <button onClick={() => press("0")} disabled={busy}>
               0
             </button>
-            <button onClick={() => setPin(pin.slice(0, -1))} aria-label="Löschen" disabled={busy}>
+            <button className="erase" onClick={() => setPin(pin.slice(0, -1))} aria-label="Löschen" disabled={busy}>
               <Icon name="backspace" size={30} />
             </button>
           </div>

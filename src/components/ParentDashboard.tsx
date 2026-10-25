@@ -82,7 +82,10 @@ export function ParentDashboard(props: {
     <main className="page stack">
       <header className="topbar">
         <div className="brand">
-          <Logo size={36} /> Eltern-Bereich
+          <span className="dot">
+            <Logo size={26} />
+          </span>
+          Eltern-Bereich
         </div>
         <button className="secondary" onClick={logout}>
           Abmelden

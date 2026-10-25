@@ -4,8 +4,8 @@
   "description": "Lernen, fragen, bauen – mit YoMa.",
   "start_url": "/lab",
   "display": "standalone",
-  "background_color": "#f6f4ff",
-  "theme_color": "#5b4cf0",
+  "background_color": "#efefe6",
+  "theme_color": "#efefe6",
   "lang": "de",
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
