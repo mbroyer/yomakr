@@ -58,7 +58,8 @@ export async function currentRole(): Promise<Role | null> {
 export const sessionCookieOptions = {
   httpOnly: true,
   sameSite: "lax" as const,
-  secure: process.env.NODE_ENV === "production",
+  // Im Heimnetz läuft die App ohne HTTPS (HEIMNETZ=1), sonst nur über HTTPS.
+  secure: process.env.NODE_ENV === "production" && process.env.HEIMNETZ !== "1",
   path: "/",
   maxAge: MAX_AGE_SECONDS,
 };

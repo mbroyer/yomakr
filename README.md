@@ -57,6 +57,17 @@ npm test
 npm run lint
 ```
 
+## Testbetrieb auf dem Mac im WLAN
+
+Für eine Probephase ohne Server: `.env` anlegen, dann
+
+```bash
+npm ci
+npm run heimnetz
+```
+
+Das iPad öffnet die App unter `http://<Mac-Name>.local:3000`. Ohne HTTPS, darum nur im eigenen WLAN nutzen. Die Warnung „next start does not work with output: standalone“ kann man hier ignorieren.
+
 ## Auf dem Server (Hetzner, Docker)
 
 Auf einem frischen Ubuntu-24.04-Server mit geklontem Repo unter `/opt/yomakr`:
