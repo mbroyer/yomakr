@@ -1,0 +1,14 @@
+services:
+  yomakr:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_PATH: /data/yomakr.db
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - yomakr-data:/data
+
+volumes:
+  yomakr-data:
