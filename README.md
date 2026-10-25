@@ -57,14 +57,18 @@ npm test
 npm run lint
 ```
 
-## Auf dem Server (Docker)
+## Auf dem Server (Hetzner, Docker)
+
+Auf einem frischen Ubuntu-24.04-Server mit geklontem Repo unter `/opt/yomakr`:
 
 ```bash
-cp .env.example .env    # Werte eintragen
-docker compose up -d --build
+bash /opt/yomakr/deploy/setup.sh
 ```
 
-Die App lauscht dann auf `127.0.0.1:3000`. Für HTTPS kommt davor ein Reverse-Proxy (z. B. Caddy), das richten wir in Phase 4 auf dem Hetzner-Server ein. Die Datenbank liegt im Docker-Volume `yomakr-data`.
+Das Skript installiert Docker, schaltet die Firewall (nur SSH, HTTP, HTTPS) und automatische Sicherheitsupdates ein, fragt Domain, API-Key, PIN und Eltern-Passwort ab, schreibt sie in `.env` und startet die App. Davor sitzt **Caddy** und holt automatisch ein HTTPS-Zertifikat (`deploy/Caddyfile`). Die Domain braucht einen A-Record auf die IP des Servers.
+
+- Updates einspielen: `bash /opt/yomakr/deploy/update.sh`
+- Backup: täglich per Cron nach `/data/backups` im Volume `yomakr-data`, 14 Tage aufbewahrt (`deploy/backup.sh`)
 
 ## Aufs iPad
 

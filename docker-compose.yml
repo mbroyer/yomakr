@@ -5,10 +5,27 @@ services:
     env_file: .env
     environment:
       DATABASE_PATH: /data/yomakr.db
-    ports:
-      - "127.0.0.1:3000:3000"
     volumes:
       - yomakr-data:/data
 
+  # HTTPS-Eingang: leitet https://YOMAKR_DOMAIN an die App weiter.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - yomakr
+    environment:
+      YOMAKR_DOMAIN: ${YOMAKR_DOMAIN:?YOMAKR_DOMAIN fehlt in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
 volumes:
   yomakr-data:
+  caddy-data:
+  caddy-config:
