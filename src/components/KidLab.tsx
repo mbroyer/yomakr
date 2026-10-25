@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { YoMa } from "./YoMa";
+import { Logo } from "./Logo";
+import { Icon, type IconName } from "./Icon";
 import { RichText } from "./RichText";
 
 interface ModeInfo {
   id: string;
   title: string;
-  emoji: string;
+  icon: IconName;
   tagline: string;
 }
 
@@ -109,10 +110,13 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
       <main className="page">
         <header className="topbar">
           <div className="brand">
-            <YoMa size={44} /> Yomakr
+            <span className="accent">
+              <Logo size={36} />
+            </span>
+            Yomakr
           </div>
           <button className="secondary" onClick={logout}>
-            Tschüss 👋
+            <Icon name="logout" size={20} /> Tschüss
           </button>
         </header>
         <h1>{kidName ? `Hi ${kidName}!` : "Hi!"} Was machen wir heute?</h1>
@@ -120,13 +124,17 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
         <section className="modes">
           {modes.map((m) => (
             <button key={m.id} className="mode" onClick={() => start(m)}>
-              <span className="emoji">{m.emoji}</span>
+              <span className="mode-icon">
+                <Icon name={m.icon} size={30} />
+              </span>
               <span className="title">{m.title}</span>
               <span className="tagline">{m.tagline}</span>
             </button>
           ))}
           <div className="mode soon" aria-disabled>
-            <span className="emoji">🛠️</span>
+            <span className="mode-icon">
+              <Icon name="blocks" size={30} />
+            </span>
             <span className="title">Werkstatt</span>
             <span className="tagline">Eigene Spiele und Apps bauen. Kommt bald!</span>
           </div>
@@ -140,7 +148,7 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
                 if (!m) return null;
                 return (
                   <button key={c.id} onClick={() => open(c)}>
-                    {m.emoji} {c.title}
+                    <Icon name={m.icon} size={20} /> {c.title}
                   </button>
                 );
               })}
@@ -155,10 +163,10 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
     <main className="page">
       <header className="topbar">
         <button className="secondary" onClick={() => setMode(null)}>
-          ← Zurück
+          <Icon name="back" size={20} /> Zurück
         </button>
         <div className="brand" style={{ fontSize: 19 }}>
-          {mode.emoji} {mode.title}
+          <Icon name={mode.icon} size={24} /> {mode.title}
         </div>
         <span style={{ width: 90 }} />
       </header>
@@ -166,7 +174,9 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
         <div className="messages">
           {messages.length === 0 && (
             <div className="row" style={{ alignItems: "flex-start" }}>
-              <YoMa size={56} />
+              <span className="accent">
+                <Logo size={44} />
+              </span>
               <div className="bubble assistant">{mode.tagline} Schreib mir oder tippe aufs Mikrofon der Tastatur und sprich einfach.</div>
             </div>
           )}
@@ -177,7 +187,10 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
           ))}
           {busy && (
             <div className="thinking">
-              <YoMa size={36} mood="thinking" /> YoMa denkt nach …
+              <span className="accent">
+                <Logo size={28} thinking />
+              </span>{" "}
+              YoMa denkt nach …
             </div>
           )}
           {error && <p className="error">{error}</p>}
@@ -212,7 +225,7 @@ export function KidLab({ modes, kidName }: { modes: ModeInfo[]; kidName: string 
             }}
           />
           <button type="submit" disabled={busy || !text.trim()} aria-label="Senden">
-            ➤
+            <Icon name="send" size={26} />
           </button>
         </form>
       </section>

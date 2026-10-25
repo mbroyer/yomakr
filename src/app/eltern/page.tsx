@@ -19,7 +19,7 @@ export default async function ParentPage() {
       alerts={alerts}
       stats={weekStats()}
       reports={listReports()}
-      modes={MODES.map(({ id, title, emoji }) => ({ id, title, emoji }))}
+      modes={MODES.map(({ id, title, icon }) => ({ id, title, icon }))}
     />
   );
 }

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Settings } from "@/lib/settings";
 import type { StoredReport, WeekStats } from "@/lib/report";
-import { YoMa } from "./YoMa";
+import { Logo } from "./Logo";
+import { Icon, type IconName } from "./Icon";
 
 export interface Alert {
   id: number;
@@ -32,7 +33,7 @@ export function ParentDashboard(props: {
   alerts: Alert[];
   stats: WeekStats;
   reports: StoredReport[];
-  modes: { id: string; title: string; emoji: string }[];
+  modes: { id: string; title: string; icon: IconName }[];
 }) {
   const router = useRouter();
   const [settings, setSettings] = useState(props.initialSettings);
@@ -81,7 +82,7 @@ export function ParentDashboard(props: {
     <main className="page stack">
       <header className="topbar">
         <div className="brand">
-          <YoMa size={40} /> Eltern-Bereich
+          <Logo size={36} /> Eltern-Bereich
         </div>
         <button className="secondary" onClick={logout}>
           Abmelden
@@ -115,7 +116,9 @@ export function ParentDashboard(props: {
         </div>
         <div className="card">
           <p className="muted small">Zugang</p>
-          <div className="stat">{settings.paused ? "⏸ Pausiert" : "▶ Aktiv"}</div>
+          <div className="stat row">
+            <Icon name={settings.paused ? "pause" : "play"} size={28} /> {settings.paused ? "Pausiert" : "Aktiv"}
+          </div>
           <button className={settings.paused ? "" : "secondary"} onClick={() => save({ paused: !settings.paused })}>
             {settings.paused ? "Fortsetzen" : "Pause"}
           </button>
@@ -217,7 +220,7 @@ export function ParentDashboard(props: {
                   })
                 }
               />
-              {m.emoji} {m.title}
+              <Icon name={m.icon} size={20} /> {m.title}
             </label>
           ))}
         </div>

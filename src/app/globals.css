@@ -32,6 +32,11 @@
 
 * { box-sizing: border-box; }
 
+.accent { color: var(--accent); display: inline-flex; }
+.icon { flex-shrink: 0; }
+.logo-thinking { animation: logo-pulse 1.2s ease-in-out infinite; transform-origin: center; }
+@keyframes logo-pulse { 50% { transform: scale(0.82) rotate(-12deg); opacity: 0.6; } }
+
 html, body {
   margin: 0;
   background: var(--bg);
@@ -54,6 +59,10 @@ button {
   color: var(--accent-ink);
   font-weight: 600;
   touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 button:disabled { opacity: 0.5; cursor: default; }
 button.secondary { background: var(--surface-2); color: var(--text); }
@@ -112,13 +121,18 @@ h3 { font-size: 18px; }
   background: var(--surface); color: var(--text); border: 2px solid var(--border);
 }
 .mode:hover, .mode:focus-visible { border-color: var(--accent); }
-.mode .emoji { font-size: 40px; line-height: 1; }
+.mode-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; border-radius: 14px;
+  background: var(--accent-soft); color: var(--accent);
+}
 .mode .title { font-size: 19px; font-weight: 700; }
 .mode .tagline { font-size: 15px; color: var(--muted); font-weight: 400; }
 .mode.soon { opacity: 0.6; border-style: dashed; }
+.mode.soon .mode-icon { background: var(--surface-2); color: var(--muted); }
 
 .history { display: grid; gap: 8px; margin-top: 12px; }
-.history button { justify-content: flex-start; text-align: left; background: var(--surface); color: var(--text); border: 1px solid var(--border); font-weight: 500; }
+.history button { justify-content: flex-start; gap: 10px; text-align: left; background: var(--surface); color: var(--text); border: 1px solid var(--border); font-weight: 500; }
 
 .chat { display: flex; flex-direction: column; height: calc(100dvh - 120px); }
 .messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 8px 2px 16px; }
@@ -142,6 +156,7 @@ h3 { font-size: 18px; }
 .field { display: grid; gap: 6px; }
 .field label { font-weight: 600; font-size: 15px; }
 .toggle { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.toggle .icon { color: var(--accent); }
 .toggle input { width: 24px; height: 24px; min-height: 0; }
 .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 14px; background: var(--surface-2); }
 .pill.bad { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }

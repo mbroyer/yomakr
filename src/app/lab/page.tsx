@@ -9,10 +9,10 @@ export const dynamic = "force-dynamic";
 export default async function LabPage() {
   if ((await currentRole()) !== "kid") redirect("/");
   const settings = getSettings();
-  const modes = MODES.filter((m) => settings.enabledModes.includes(m.id)).map(({ id, title, emoji, tagline }) => ({
+  const modes = MODES.filter((m) => settings.enabledModes.includes(m.id)).map(({ id, title, icon, tagline }) => ({
     id,
     title,
-    emoji,
+    icon,
     tagline,
   }));
   return <KidLab modes={modes} kidName={process.env.KID_NAME ?? ""} />;

@@ -1,9 +1,11 @@
+import type { IconName } from "@/components/Icon";
+
 export type ModeId = "coach" | "fragen" | "geschichten" | "programmieren";
 
 export interface Mode {
   id: ModeId;
   title: string;
-  emoji: string;
+  icon: IconName;
   tagline: string;
   prompt: string;
 }
@@ -12,7 +14,7 @@ export const MODES: Mode[] = [
   {
     id: "coach",
     title: "Hausaufgaben-Coach",
-    emoji: "🧭",
+    icon: "compass",
     tagline: "Ich helfe dir, selbst draufzukommen.",
     prompt: `Modus: Hausaufgaben-Coach.
 Du arbeitest sokratisch. Gib niemals die fertige Lösung einer Aufgabe, auch nicht, wenn das Kind darum bittet oder drängelt.
@@ -25,7 +27,7 @@ Du arbeitest sokratisch. Gib niemals die fertige Lösung einer Aufgabe, auch nic
   {
     id: "fragen",
     title: "Frag mich alles",
-    emoji: "🔭",
+    icon: "search",
     tagline: "Warum ist der Himmel blau? Frag einfach!",
     prompt: `Modus: Frag mich alles.
 Erkläre Dinge anschaulich mit Vergleichen aus dem Alltag eines Kindes (Fußball, Kochen, Lego, Tiere, Spiele).
@@ -36,7 +38,7 @@ Erkläre Dinge anschaulich mit Vergleichen aus dem Alltag eines Kindes (Fußball
   {
     id: "geschichten",
     title: "Geschichten & Ideen",
-    emoji: "🐉",
+    icon: "book",
     tagline: "Wir erfinden zusammen eine Geschichte.",
     prompt: `Modus: Geschichten & Ideen.
 Ihr schreibt gemeinsam. Das Kind ist der Autor, du bist der Mitspieler.
@@ -48,7 +50,7 @@ Ihr schreibt gemeinsam. Das Kind ist der Autor, du bist der Mitspieler.
   {
     id: "programmieren",
     title: "Programmieren lernen",
-    emoji: "🤖",
+    icon: "code",
     tagline: "Wie denken Computer? Lass es uns ausprobieren.",
     prompt: `Modus: Programmieren lernen.
 Das Kind hat noch keine Programmiererfahrung (auch kein Scratch). Ziel ist echtes Verständnis, nicht schnelles Abschreiben.

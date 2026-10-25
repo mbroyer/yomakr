@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { YoMa } from "./YoMa";
+import { Logo } from "./Logo";
+import { Icon } from "./Icon";
 
 const PIN_LENGTH = 4;
 
@@ -44,7 +45,9 @@ export function LoginScreen() {
     <main className="login page">
       {view === "kid" ? (
         <div className="card">
-          <YoMa size={88} />
+          <span className="accent">
+            <Logo size={72} />
+          </span>
           <h1>Hi! Ich bin YoMa.</h1>
           <p className="muted">Gib deine PIN ein, dann legen wir los.</p>
           <div className="pin-dots" aria-label={`${pin.length} von ${PIN_LENGTH} Ziffern`}>
@@ -64,7 +67,7 @@ export function LoginScreen() {
               0
             </button>
             <button onClick={() => setPin(pin.slice(0, -1))} aria-label="Löschen" disabled={busy}>
-              ⌫
+              <Icon name="backspace" size={30} />
             </button>
           </div>
           <button className="ghost small" onClick={() => { setView("parent"); setError(""); }}>
